@@ -1,0 +1,45 @@
+:root {
+  --primary-color: #0c131c;
+  --secondary-color: #111111;
+  --accent-color: #cdbe91;
+  --text-color: #f0e6d2;
+  --background-color: #ecf0f1;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.background-video {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1; /* Place it behind other elements */
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.video {
+  height: 100%;
+  object-fit: contain;
+}
+
+.overlay {
+  width: 97em;
+  height: 100%;
+  position: absolute;
+  background: radial-gradient(
+    circle at center,
+    transparent 55%,
+    rgba(0, 0, 0, 1) 75%
+  );
+}
+
+.content {
+  height: 100vh;
+  background-color: #0c131c;
+}
