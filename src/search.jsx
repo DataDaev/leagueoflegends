@@ -1,20 +1,22 @@
 import { useState } from "react";
 
-export default function SearchBar() {
-  const [search, setSearch] = useState();
+export default function SearchBar({ onSearch }) {
+  const [championSearch, setChampionSearch] = useState("");
 
-  function handleKeyPress() {
-    // if (e.key === "Enter") {
-    // }
+  function handleKeyPress(e) {
+    if (e.key === "Enter") {
+      console.log(championSearch);
+      onSearch(championSearch);
+    }
   }
 
   return (
     <div className="search">
       <input
-        placeholder="Player or Champion"
+        placeholder="Champion"
         type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        value={championSearch}
+        onChange={(e) => setChampionSearch(e.target.value)}
         onKeyDown={handleKeyPress}
       />
       <div>
