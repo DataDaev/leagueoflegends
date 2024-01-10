@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Navigation from "./Navigation";
+import PropTypes from "prop-types";
 
 const apiLeague = {
-  // key: "RGAPI-6cb956b6-f868-4934-a09a-8d24c70f65e2",
   base: "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion.json",
 };
 
-export default function Champions() {
+export default function Champions({ search }) {
   const [championImage, setChampionImage] = useState([]);
 
   useEffect(() => {
@@ -21,19 +21,20 @@ export default function Champions() {
     };
 
     fetchChampions();
-  }, []);
+  }, [search]);
 
   const champions = championImage.data || {};
 
   return (
     <div>
+      {console.log(champions)}
       <Navigation />
       <div className="content">
         <div className="championGallery">
           {Object.values(champions).map((champion) => (
             <div className="championCard" key={champion.key}>
               <img
-                src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.name}_0.jpg`}
+                src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.id}_0.jpg`}
                 alt=""
               />
               <p>{champion.name}</p>
@@ -44,3 +45,7 @@ export default function Champions() {
     </div>
   );
 }
+
+Champions.propTypes = {
+  search: PropTypes.string,
+};

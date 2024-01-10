@@ -11,7 +11,7 @@ export default function Navigation() {
           <Link to="/champions">Champions</Link>
         </li>
         <li>
-          <Link to="/guides">Guides</Link>
+          <Link to="/champions/guide">Guide</Link>
         </li>
       </ul>
     </nav>
