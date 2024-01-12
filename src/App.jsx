@@ -3,8 +3,7 @@ import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import HomePage from "./home";
 import Champions from "./champions";
 import Guide from "./Guide";
-// import { SearchContext } from "./Contexts/ContextApi";
-
+import Navigation from "./Navigation";
 export default function App() {
   const [search, setSearch] = useState("");
 
@@ -15,11 +14,12 @@ export default function App() {
   return (
     <Router>
       <div>
+        <Navigation onSearch={handleSearch} search={search} />
         <Routes>
           <Route path="/" element={<HomePage onSearch={handleSearch} />} />
-          <Route path="/champions" element={<Champions search={search} />} />
+          <Route path="/champions" element={<Champions />} />
           <Route
-            path={`/champions/${search}`}
+            path={"/champions/:search"}
             element={<Guide search={search} />}
           />
         </Routes>

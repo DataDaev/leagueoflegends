@@ -1,24 +1,32 @@
 import { useEffect, useState } from "react";
-import Navigation from "./Navigation";
 import PropTypes from "prop-types";
 
 const apiLeague = {
-  championURL:
+  championDataURL:
     "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion/",
+  squareImageURL:
+    "https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/",
   abilitiesURL: "https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/",
+  passiveURL: "https://ddragon.leagueoflegends.com/cdn/13.24.1/img/passive/",
 };
 
 export default function Guide({ search }) {
   const [champion, setChampion] = useState([]);
-  const capitalizedSearch =
-    search.charAt(0).toUpperCase() +
-    search.slice(1).toLowerCase().replace(/'/g, "");
+  const capitalizedSearch = search
+    .toLowerCase()
+    .split(" ")
+    .map(
+      (word) =>
+        word.charAt(0).toUpperCase() +
+        word.slice(1).toLowerCase().replace(/'/g, "")
+    )
+    .join("");
 
   useEffect(() => {
     const fetchChampions = async () => {
       try {
         const championDataRes = await fetch(
-          `${apiLeague.championURL + capitalizedSearch}.json`
+          `${apiLeague.championDataURL + capitalizedSearch}.json`
         );
         const championData = await championDataRes.json();
         setChampion(championData);
@@ -34,25 +42,30 @@ export default function Guide({ search }) {
 
   return (
     <div>
-      <Navigation />
+      {console.log(search)}
       <div className="guide">
-        <div className="guide-container">
-          {searchedChampion && (
-            <div className="guide-champion">
+        {searchedChampion && (
+          <div className="guide-container">
+            <div>
               <img
-                src={`https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${capitalizedSearch}.png`}
+                src={`${apiLeague.squareImageURL + capitalizedSearch}.png`}
                 alt=""
               />
+            </div>
+            <div className="guide-champion">
               <h1>{searchedChampion.name} ARAM Build & Runes</h1>
-              <div>
-                <img
-                  src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/AatroxQ.png"
-                  alt=""
-                />
+              <div className="abilities">
+                {Object.values(searchedChampion.spells).map((skill, index) => (
+                  <img
+                    key={index}
+                    src={`${apiLeague.abilitiesURL + skill.id}.png`}
+                    alt={index}
+                  />
+                ))}
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

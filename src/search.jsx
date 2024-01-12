@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+// import { ReactComponent as SearchIcon } from "./assets/search-icon.svg";
 
-export default function SearchBar({ onSearch }) {
-  const [championSearch, setChampionSearch] = useState("");
+export default function SearchBar({ onSearch, search }) {
   const navigate = useNavigate();
+  const searchRef = useRef();
+
+  useEffect(() => {
+    searchRef.current.focus();
+  }, []);
 
   function handleSearchBar(e) {
     e.preventDefault();
-    const trimSearch = championSearch.trim();
+    const trimSearch = search.trim();
     if (trimSearch === "") return;
     onSearch(trimSearch);
     navigate(`/champions/${trimSearch}`);
-    console.log(trimSearch);
+    // onSearch("");
   }
 
   function handleKeyPress(e) {
@@ -23,17 +28,19 @@ export default function SearchBar({ onSearch }) {
 
   return (
     <form onSubmit={handleSearchBar}>
-      <div className="search">
+      <div className="search-container">
         <input
           placeholder="Champion"
+          className="champion-input"
+          ref={searchRef}
           type="text"
-          value={championSearch}
-          onChange={(e) => setChampionSearch(e.target.value)}
+          value={search}
+          onChange={(e) => onSearch(e.target.value)}
           onKeyDown={handleKeyPress}
         />
         <div>
           <button className="search-button" type="submit">
-            🔍
+            {/* <SearchIcon /> */}
           </button>
         </div>
       </div>
@@ -43,4 +50,5 @@ export default function SearchBar({ onSearch }) {
 
 SearchBar.propTypes = {
   onSearch: PropTypes.func.isRequired,
+  search: PropTypes.string,
 };

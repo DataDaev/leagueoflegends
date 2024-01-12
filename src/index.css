@@ -7,7 +7,9 @@
   --form-control-color: #2b2a29;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -26,19 +28,27 @@ svg {
 
 nav {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   padding: 0 2em;
   background-color: #111111;
   border-bottom: solid 1px #191919;
   height: 6em;
+  position: sticky;
+  top: 0;
+}
+
+nav ul {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 100%;
+  height: 100%;
+  list-style: none;
 }
 
 nav li {
-  display: inline-block;
-  list-style: none;
-  margin-right: 1em;
   font-size: 1.4em;
   color: var(--text-color);
   margin: 0 1em;
@@ -63,8 +73,12 @@ nav li a:hover {
   font-size: 2em;
 }
 
-.search-container {
-  position: relative;
+.search-homepage {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100%;
 }
 
 .background-video {
@@ -74,28 +88,22 @@ nav li a:hover {
   background-color: black;
   position: relative;
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   z-index: -1; /* Place it behind other elements */
   border-bottom: 1px solid var(--accent-color);
 }
 
-.search {
-  display: flex;
-  /* justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; */
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%);
-  position: absolute;
-  z-index: 1;
+.nav-search-container {
+  position: relative;
+  left: 3.5%;
 }
 
-.search input {
-  display: block;
-  min-width: 10rem;
+.search-container {
+  display: flex;
+}
+
+.champion-input {
   width: 100%;
-  height: 100%;
   border: none;
   padding: 0.5em 4em 0.5em 1.2em;
   font-size: 1.3em;
@@ -104,14 +112,13 @@ nav li a:hover {
   color: white;
 }
 
-.search input:focus {
+.champion-input:focus {
   outline: none;
 }
 
-.search button {
-  position: absolute;
-  top: 0;
-  right: 0;
+.search-button {
+  position: relative;
+  right: 100%;
   width: 2.5em;
   height: 100%;
   border-radius: 2em;
@@ -119,10 +126,6 @@ nav li a:hover {
   border: none;
   font-size: 1.2em;
   cursor: pointer;
-}
-
-.search button:active {
-  font-size: 1.1em;
 }
 
 .video {
@@ -144,11 +147,17 @@ nav li a:hover {
 .content {
   min-height: 100vh;
   background-color: #0c131c;
-  padding: 1.5em;
+}
+
+.content-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 1em;
 }
 
 .championGallery {
   display: flex;
+  width: 75em;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2em;
@@ -183,15 +192,28 @@ nav li a:hover {
   display: flex;
   justify-content: start;
   align-items: start;
-  max-width: 100em;
-  margin-top: 1em;
+  flex-wrap: wrap;
+  width: 75em;
+  margin: 1em;
+  background-color: grey;
 }
 
 .guide-container h1 {
-  justify-self: start;
-  margin: 0 0.5em;
+  margin: 0;
 }
 
 .guide-champion {
   display: flex;
+  flex-direction: column;
+  margin: 0 0.5em;
+}
+
+.abilities {
+  display: flex;
+  margin-top: 0.5em;
+  gap: 0.2em;
+}
+
+.abilities img {
+  border: 3px black solid;
 }
