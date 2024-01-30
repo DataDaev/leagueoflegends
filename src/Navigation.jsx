@@ -1,28 +1,32 @@
 import { Link } from "react-router-dom";
-import SearchBar from "./Search";
+import SearchBar from "./search";
 import PropTypes from "prop-types";
 
-export default function Navigation({ onSearch, search }) {
+export default function Navigation({ onSearch, search, onSearchSubmitted }) {
+  // const pageLocation = useLocation();
+  // const isHome = pageLocation.pathname === "/";
+
   return (
     <nav>
-      <div>
-        <Link to="/">
-          <h3 className="logo">ARAM</h3>
-        </Link>
+      <Link to="/">
+        <h3 className="logo">ARAM</h3>
+      </Link>
+      <div className={"nav-search-container"}>
+        <SearchBar
+          onSearch={onSearch}
+          search={search}
+          onSearchSubmitted={onSearchSubmitted}
+        />
       </div>
-      <div className="nav-search-container">
-        <SearchBar onSearch={onSearch} search={search} />
-      </div>
-      <div>
-        <ul>
-          <li>
-            <Link to="/champions">Champions</Link>
-          </li>
-          <li>
-            <Link to="/champions/guide">Guide</Link>
-          </li>
-        </ul>
-      </div>
+
+      <ul>
+        <li>
+          <Link to="/champions">Champions</Link>
+        </li>
+        <li>
+          <Link to="/champions/guide">Guide</Link>
+        </li>
+      </ul>
     </nav>
   );
 }
@@ -30,4 +34,5 @@ export default function Navigation({ onSearch, search }) {
 Navigation.propTypes = {
   onSearch: PropTypes.func.isRequired,
   search: PropTypes.string,
+  onSearchSubmitted: PropTypes.func,
 };

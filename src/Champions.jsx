@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const apiLeague = {
-  base: "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion.json",
+  allChampionsURL:
+    "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion.json",
 };
 
 export default function Champions() {
@@ -11,7 +13,7 @@ export default function Champions() {
   useEffect(() => {
     const fetchChampions = async () => {
       try {
-        const championDataRes = await fetch(`${apiLeague.base}`);
+        const championDataRes = await fetch(`${apiLeague.allChampionsURL}`);
         const championData = await championDataRes.json();
         setChampionImage(championData);
       } catch (error) {
@@ -32,11 +34,13 @@ export default function Champions() {
           <div className="championGallery">
             {Object.values(champions).map((champion) => (
               <div className="championCard" key={champion.key}>
-                <img
-                  src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.id}_0.jpg`}
-                  alt=""
-                />
-                <p>{champion.name}</p>
+                <Link to={`/champions/${champion.id}`}>
+                  <img
+                    src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.id}_0.jpg`}
+                    alt=""
+                  />
+                  <p>{champion.name}</p>
+                </Link>
               </div>
             ))}
           </div>
