@@ -5,6 +5,7 @@ import Champions from "./champions";
 import Guide from "./Guide";
 import Navigation from "./Navigation";
 import ScrollToTop from "./ScrollToTop";
+import Footer from "./Footer";
 export default function App() {
   const [search, setSearch] = useState("");
   const [searchSubmitted, setSearchSubmitted] = useState(false);
@@ -43,6 +44,7 @@ export default function App() {
             }
           />
         </Routes>
+        <Footer />
       </>
     </Router>
   );

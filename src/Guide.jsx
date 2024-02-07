@@ -20,6 +20,9 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
   const [champion, setChampion] = useState([]);
   const [filteredChampion, setfilteredChampion] = useState("");
   const [biography, setBiography] = useState("");
+  const [activeTab, setActiveTab] = useState(1);
+  const [version, setVersion] = useState();
+
   const fromChampionPage = useParams();
   const capitalizedSearch = fromChampionPage.search
     .split(" ")
@@ -31,7 +34,16 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
   useEffect(() => {
     const fetchChampions = async () => {
       try {
-        const allChampionsRes = await fetch(`${apiLeague.allChampionsURL}`);
+        const versionRes = await fetch(
+          "https://ddragon.leagueoflegends.com/api/versions.json"
+        );
+        const versionData = await versionRes.json();
+        const latestVersion = versionData[0];
+        setVersion(latestVersion);
+
+        const allChampionsRes = await fetch(
+          `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion.json`
+        );
         const allChampionsData = await allChampionsRes.json();
         const mappedData = Object.values(allChampionsData.data).map(
           (champion) => champion.id
@@ -39,14 +51,15 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
         const filteredData = mappedData.filter((name) =>
           name.includes(capitalizedSearch)
         );
-        console.log(filteredData[0]);
         setfilteredChampion(filteredData[0]);
+
         const championDataRes = await fetch(`${
           apiLeague.championDataURL + filteredData[0]
         }.json
         `);
         const championData = await championDataRes.json();
         setChampion(championData);
+
         const bioData = await fetchBiographyData();
         setBiography(bioData);
       } catch (error) {
@@ -60,8 +73,8 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
   const searchedChampion = championData[filteredChampion];
 
   return (
-    <div>
-      {biography && console.log(searchedChampion)}
+    <>
+      {biography && console.log(version)}
       {onSearchSubmitted(false)}
       <div className="guide">
         {searchedChampion && (
@@ -78,41 +91,71 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
               </div>
               <div className="guide-header">
                 <h1>{searchedChampion.name}</h1>
-                <p>{searchedChampion.title.toUpperCase()}</p>
+                <h4>{searchedChampion.title.toUpperCase()}</h4>
               </div>
             </div>
-            <div className="biography">
-              <p>{biography && biography[filteredChampion].biography}</p>
-            </div>
-            {/* <div>
-              <img
-                src={`${apiLeague.squareImageURL + filteredChampion}.png`}
-                alt=""
-              />
-            </div>
-            <div className="guide-champion">
-              <h1>{searchedChampion.name} ARAM Build & Runes</h1>
-              <div className="abilities">
-                <img
-                  src={`${
-                    apiLeague.passiveURL + searchedChampion.passive.image.full
-                  }`}
-                  alt=""
-                />
-                {Object.values(searchedChampion.spells).map((skill, index) => (
-                  <div key={index}>
+            <div className="champion-content">
+              <ul className="tabs">
+                <li
+                  className={activeTab === 1 ? "active-tab" : ""}
+                  onClick={() => setActiveTab(1)}
+                >
+                  Biography
+                </li>
+                <li
+                  className={activeTab === 2 ? "active-tab" : ""}
+                  onClick={() => setActiveTab(2)}
+                >
+                  Skills
+                </li>
+                {console.log(activeTab)}
+              </ul>
+              <div className={activeTab === 1 ? "biography" : "hide-content"}>
+                <h2>Who is {searchedChampion.name}?</h2>
+                <p>{biography && biography[filteredChampion].biography}</p>
+              </div>
+              <div className={activeTab === 2 ? "stats" : "hide-content"}>
+                <div className="stats-header">
+                  <img
+                    src={`${apiLeague.squareImageURL + filteredChampion}.png`}
+                    alt=""
+                  />
+                  <h1>{searchedChampion.name} - Skills</h1>
+                </div>
+                <div className="abilities">
+                  <div className="passive">
                     <img
-                      src={`${apiLeague.abilitiesURL + skill.id}.png`}
-                      alt={index}
+                      src={`${
+                        apiLeague.passiveURL +
+                        searchedChampion.passive.image.full
+                      }`}
+                      alt=""
                     />
+                    <div className="separator"></div>
+                    <p>{searchedChampion.passive.description}</p>
                   </div>
-                ))}
+                  {Object.values(searchedChampion.spells).map(
+                    (skill, index) => (
+                      <div key={index} className="skill">
+                        <img
+                          src={`${apiLeague.abilitiesURL + skill.id}.png`}
+                          alt={index}
+                        />
+                        <div className="separator"></div>
+                        <p>{skill.description}</p>
+                      </div>
+                    )
+                  )}
+                  {/* <ul>
+                    <li>{searchedChampion.stats.hp}</li>
+                  </ul> */}
+                </div>
               </div>
-            </div> */}
+            </div>
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }
 

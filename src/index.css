@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@700&family=Merriweather+Sans&display=swap");
+
 :root {
   --primary-color: #0c131c;
   --secondary-color: #111111;
@@ -5,6 +7,7 @@
   --text-color: #f0e6d2;
   --background-color: #ecf0f1;
   --form-control-color: #2b2a29;
+  --nav-seperator-color: #191919;
 }
 
 *,
@@ -17,6 +20,16 @@ html,
 body {
   padding: 0;
   margin: 0;
+}
+
+h1,
+h2,
+h4 {
+  font-family: "EB Garamond", serif;
+}
+
+p {
+  font-family: "Merriweather Sans", sans-serif;
 }
 
 img,
@@ -35,9 +48,9 @@ nav {
   justify-content: space-between;
   align-items: center;
   /* flex-wrap: wrap; */
-  padding: 0 2em;
-  background-color: #111111;
-  border-bottom: solid 1px #191919;
+  padding: 0 2.5em;
+  background-color: var(--secondary-color);
+  border-bottom: solid 2px var(--nav-seperator-color);
   height: 5em;
   position: sticky;
   top: 0;
@@ -52,6 +65,7 @@ nav ul {
 }
 
 nav li {
+  font-family: "EB Garamond", serif;
   font-size: 1.4em;
   color: var(--text-color);
   margin: 0 1em;
@@ -80,9 +94,9 @@ nav li a:hover {
   top: 0%;
   left: -500%;
   transform: translate(-20%, -30%); */
-  padding-left: 1em;
   color: var(--accent-color);
-  font-size: 2em;
+  font-size: 2.5em;
+  font-family: "EB Garamond", serif;
 }
 
 /* .nav-search-container.search-homepage {
@@ -99,13 +113,16 @@ nav li a:hover {
   background-color: black;
   position: relative;
   height: 100%;
-  /* overflow: hidden; */
+  overflow: hidden;
   z-index: -1; /* Place it behind other elements */
   border-bottom: 1px solid var(--accent-color);
 }
 
 .search-container {
   display: flex;
+  /* position: static;
+  left: 50%; */
+  /* transform: translate(-10%); */
 }
 
 .champion-input {
@@ -114,7 +131,7 @@ nav li a:hover {
   padding: 0.5em 4em 0.5em 1.2em;
   font-size: 1.3em;
   box-shadow: 0 5px 8px 3px black;
-  background-color: #2b2a29;
+  background-color: var(--form-control-color);
   color: white;
 }
 
@@ -178,8 +195,8 @@ nav li a:hover {
   width: 11em;
 }
 
-.championCard p {
-  color: #cdbe91;
+.championCard h1 {
+  color: var(--accent-color);
   display: flex;
   justify-content: center;
   font-size: 1.4em;
@@ -188,7 +205,7 @@ nav li a:hover {
 
 .guide {
   min-height: 100vh;
-  background-color: #0c131c;
+  background-color: var(--primary-color);
   display: flex;
   justify-content: center;
   z-index: -1;
@@ -211,15 +228,17 @@ nav li a:hover {
 }
 
 .guide-champion {
-  display: flex;
-  flex-direction: column;
   margin: 0 0.5em;
+}
+.guide-champion img {
+  width: 4em;
+  height: 4em;
 }
 
 .abilities {
   display: flex;
-  margin-top: 0.5em;
-  gap: 0.2em;
+  flex-direction: column;
+  border: 1px solid var(--accent-color);
 }
 
 .abilities img {
@@ -228,14 +247,81 @@ nav li a:hover {
   height: 4em;
 }
 
-.biography {
-  margin-top: 3em;
+.champion-content {
+  margin-top: 1em;
   white-space: pre-wrap;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   width: 30em;
   font-size: 1.5em;
+}
+
+.biography {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.biography h2 {
+  color: var(--accent-color);
+}
+
+.stats {
+  margin-bottom: 2em;
+}
+
+.stats-header {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin: 1em 0;
+}
+
+.passive {
+  display: flex;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.passive p {
+  font-size: 0.6em;
+  align-self: center;
+  padding: 0 1em;
+}
+
+.skill {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.skill:last-child {
+  border-bottom: none;
+}
+
+.skill p {
+  padding: 0 1em;
+  font-size: 0.6em;
+}
+
+.tabs {
+  font-family: "EB Garamond", serif;
+  list-style: none;
+  display: flex;
+  justify-content: start;
+  border-bottom: 1px solid var(--accent-color);
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.tabs li {
+  border: 1px solid var(--accent-color);
+  border-bottom: none;
+  padding: 1em;
+}
+
+.tabs li.active-tab {
+  box-shadow: 0px 0px 10px 2px var(--accent-color);
+  border: none;
 }
 
 .splash-container {
@@ -246,18 +332,19 @@ nav li a:hover {
   height: 100vh;
   min-width: 100%;
   object-fit: cover;
+  box-shadow: 0px 1px 10px -2px var(--accent-color);
   border-bottom: solid 1px var(--accent-color);
   z-index: 0;
 }
 
-.splash-overlay {
+/* .splash-overlay {
   position: absolute;
   top: 0;
   left: 0;
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
   height: 100vh;
   width: 100vw;
-}
+} */
 
 .guide-header {
   display: flex;
@@ -268,13 +355,28 @@ nav li a:hover {
   left: 50%;
   transform: translate(-50%);
   font-size: 2.5em;
+  text-shadow: -1px -1px black, 1px 1px black, 1px 1px black, -1px -1px black;
 }
 
-/* .guide-header h1 {
-  font-size: 3rem;
-} */
-
-.guide-header p {
-  color: #cdbe91;
+.guide-header h4 {
+  color: var(--accent-color);
   font-size: 1em;
+}
+
+.footer {
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  border-top: solid 2px var(--nav-seperator-color);
+  color: var(--text-color);
+}
+
+.hide-content {
+  display: none;
+}
+
+.separator {
+  width: 1px;
+  background-color: var(--accent-color);
+  align-self: stretch;
 }

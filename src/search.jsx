@@ -19,7 +19,7 @@ export default function SearchBar({ onSearch, search, onSearchSubmitted }) {
     onSearch(trimSearch);
     onSearchSubmitted(true);
     navigate(`/champions/${trimSearch}`);
-    // onSearch("");
+    onSearch("");
   }
 
   return (

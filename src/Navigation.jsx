@@ -9,7 +9,7 @@ export default function Navigation({ onSearch, search, onSearchSubmitted }) {
   return (
     <nav>
       <Link to="/">
-        <h3 className="logo">ARAM</h3>
+        <h3 className="logo">Lolchamp</h3>
       </Link>
       <div className={"nav-search-container"}>
         <SearchBar
@@ -22,9 +22,6 @@ export default function Navigation({ onSearch, search, onSearchSubmitted }) {
       <ul>
         <li>
           <Link to="/champions">Champions</Link>
-        </li>
-        <li>
-          <Link to="/champions/guide">Guide</Link>
         </li>
       </ul>
     </nav>
