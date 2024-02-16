@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
-import HomePage from "./home";
-import Champions from "./champions";
+import HomePage from "./Home";
+import Champions from "./Champions";
 import Lore from "./Lore-skills";
 import Navigation from "./Navigation";
 import ScrollToTop from "./ScrollToTop";

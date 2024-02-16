@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SearchBar from "./search";
+import SearchBar from "./Search";
 import PropTypes from "prop-types";
 
 export default function Navigation({ onSearch, search, onSearchSubmitted }) {
