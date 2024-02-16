@@ -11,20 +11,49 @@
 }
 
 @media (max-width: 760px) {
-  nav,
+  nav {
+    font-size: 0.6em;
+  }
+
   .content,
-  .background-video,
   .footer,
   .lore,
   .splash-container {
-    min-width: 760px;
+    max-width: 100%;
+  }
+
+  .featured-champion {
+    text-align: center;
+  }
+
+  .featured-champion img {
+    max-width: 100%;
+  }
+
+  .about h1 {
+    text-align: center;
+  }
+
+  .about-content {
+    flex-direction: column;
   }
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+@media (max-width: 576px) {
+  .champion-gallery {
+    gap: 0;
+  }
+
+  .champion-card {
+    width: 7em;
+    max-height: 16em;
+    font-size: 1em;
+    padding-bottom: 1em;
+  }
+
+  .champion-card h1 {
+    padding: 0;
+  }
 }
 
 html,
@@ -162,6 +191,8 @@ nav li a:hover {
 
 .content {
   min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
   background-color: #0c131c;
 }
 
@@ -245,11 +276,13 @@ nav li a:hover {
 }
 
 .about-content img {
-  height: min-content;
+  margin: 0;
+  padding: 0;
 }
 
 .about-content p {
   font-size: 1.3em;
+  margin: 0;
 }
 
 .content-container {
@@ -270,17 +303,19 @@ nav li a:hover {
   max-width: 75em;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2em;
+  gap: 1.5em;
   padding: 2em;
 }
 
 .champion-card {
   background-color: black;
+  max-width: 11em;
+  height: 23.5em;
 }
 
 .champion-card img {
-  height: 20em;
-  width: 11em;
+  height: 85%;
+  max-width: 100%;
 }
 
 .champion-card h1 {
