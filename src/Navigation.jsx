@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export default function Navigation({ onSearch, search, onSearchSubmitted }) {
   return (
     <nav>
-      <Link to="/">
+      <Link to="/leagueoflegends/">
         <h3 className="logo">Lolchamp</h3>
       </Link>
       <div className={"nav-search-container"}>
@@ -18,7 +18,7 @@ export default function Navigation({ onSearch, search, onSearchSubmitted }) {
 
       <ul>
         <li>
-          <Link to="/champions">Champions</Link>
+          <Link to="/leagueoflegends/champions">Champions</Link>
         </li>
       </ul>
     </nav>

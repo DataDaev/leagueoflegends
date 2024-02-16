@@ -29,13 +29,16 @@ export default function App() {
           onSearchSubmitted={handleSearchSubmitted}
         />
         <Routes>
-          <Route path="/" element={<HomePage onSearch={handleSearch} />} />
           <Route
-            path="/champions"
+            path="/leagueoflegends/"
+            element={<HomePage onSearch={handleSearch} />}
+          />
+          <Route
+            path="/leagueoflegends/champions"
             element={<Champions onSearch={handleSearch} />}
           />
           <Route
-            path={"/champions/:search"}
+            path={"/leagueoflegends/champions/:search"}
             element={
               <Lore
                 search={search}

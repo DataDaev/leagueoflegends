@@ -37,7 +37,7 @@ export default function Champions() {
           <div className="champion-gallery">
             {Object.values(champions).map((champion) => (
               <div className="champion-card" key={champion.key}>
-                <Link to={`/champions/${champion.id}`}>
+                <Link to={`/leagueoflegends/champions/${champion.id}`}>
                   <img
                     src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.id}_0.jpg`}
                     alt=""

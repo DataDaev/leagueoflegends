@@ -17,7 +17,7 @@ export default function SearchBar({ onSearch, search, onSearchSubmitted }) {
     if (trimSearch === "") return;
     onSearch(trimSearch);
     onSearchSubmitted(true);
-    navigate(`/champions/${trimSearch}`);
+    navigate(`/leagueoflegends/champions/${trimSearch}`);
     onSearch("");
   }
 

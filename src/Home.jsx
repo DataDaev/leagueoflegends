@@ -12,7 +12,7 @@ export default function HomePage() {
           alt=""
         />
         <h2>Smolder</h2>
-        <Link to="/champions/smolder">
+        <Link to="/leagueoflegends/champions/smolder">
           <button>Biography</button>
         </Link>
       </div>
