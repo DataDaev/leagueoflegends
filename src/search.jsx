@@ -1,8 +1,7 @@
 import { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-
-// import { ReactComponent as SearchIcon } from "./assets/search-icon.svg";
+import SearchIcon from "./SearchIcon";
 
 export default function SearchBar({ onSearch, search, onSearchSubmitted }) {
   const searchRef = useRef();
@@ -35,7 +34,7 @@ export default function SearchBar({ onSearch, search, onSearchSubmitted }) {
         />
         <div>
           <button className="search-button" type="submit">
-            {/* <SearchIcon /> */}
+            <SearchIcon />
           </button>
         </div>
       </div>

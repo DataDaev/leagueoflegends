@@ -3,9 +3,6 @@ import SearchBar from "./search";
 import PropTypes from "prop-types";
 
 export default function Navigation({ onSearch, search, onSearchSubmitted }) {
-  // const pageLocation = useLocation();
-  // const isHome = pageLocation.pathname === "/";
-
   return (
     <nav>
       <Link to="/">

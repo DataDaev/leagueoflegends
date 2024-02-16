@@ -4,24 +4,21 @@ import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const apiLeague = {
-  allChampionsURL:
-    "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion.json",
-  championDataURL:
-    "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion/",
-  splashImageURL:
-    "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/",
-  squareImageURL:
-    "https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/",
-  abilitiesURL: "https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/",
-  passiveURL: "https://ddragon.leagueoflegends.com/cdn/13.24.1/img/passive/",
+  apiBase: "https://ddragon.leagueoflegends.com/cdn/",
+  allChampionsURL: "/data/en_US/champion.json",
+  championDataURL: "/data/en_US/champion/",
+  splashImageURL: "img/champion/splash/",
+  squareImageURL: "/img/champion/",
+  abilitiesURL: "/img/spell/",
+  passiveURL: "/img/passive/",
 };
 
-export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
+export default function Lore({ searchSubmitted, onSearchSubmitted }) {
   const [champion, setChampion] = useState([]);
   const [filteredChampion, setfilteredChampion] = useState("");
-  const [biography, setBiography] = useState("");
+  const [biographyText, setBiographyText] = useState("");
   const [activeTab, setActiveTab] = useState(1);
-  const [version, setVersion] = useState();
+  const [latestVersion, setLatestVersion] = useState();
 
   const fromChampionPage = useParams();
   const capitalizedSearch = fromChampionPage.search
@@ -31,6 +28,17 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
     )
     .join("");
 
+  const championData = champion.data || {};
+  const searchedChampion = championData[filteredChampion];
+
+  function handleSearchError() {
+    if (filteredChampion === undefined) {
+      return <h1 className="search-not-found">Sorry, champion not found.</h1>;
+    } else {
+      return <h1 className="search-not-found">Loading...</h1>;
+    }
+  }
+
   useEffect(() => {
     const fetchChampions = async () => {
       try {
@@ -39,10 +47,10 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
         );
         const versionData = await versionRes.json();
         const latestVersion = versionData[0];
-        setVersion(latestVersion);
+        setLatestVersion(latestVersion);
 
         const allChampionsRes = await fetch(
-          `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion.json`
+          `${apiLeague.apiBase + latestVersion + apiLeague.allChampionsURL}`
         );
         const allChampionsData = await allChampionsRes.json();
         const mappedData = Object.values(allChampionsData.data).map(
@@ -54,14 +62,17 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
         setfilteredChampion(filteredData[0]);
 
         const championDataRes = await fetch(`${
-          apiLeague.championDataURL + filteredData[0]
+          apiLeague.apiBase +
+          latestVersion +
+          apiLeague.championDataURL +
+          filteredData[0]
         }.json
         `);
         const championData = await championDataRes.json();
         setChampion(championData);
 
         const bioData = await fetchBiographyData();
-        setBiography(bioData);
+        setBiographyText(bioData);
       } catch (error) {
         console.log("Error fetching champion data:", error);
       }
@@ -69,27 +80,26 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
     fetchChampions();
   }, [searchSubmitted]);
 
-  const championData = champion.data || {};
-  const searchedChampion = championData[filteredChampion];
-
   return (
     <>
-      {biography && console.log(version)}
       {onSearchSubmitted(false)}
-      <div className="guide">
-        {searchedChampion && (
-          <div className="guide-container">
+      <div className="lore">
+        {searchedChampion ? (
+          <div className="lore-container">
             <div>
               <div className="splash-container">
                 <img
-                  className="guide-splash"
+                  className="lore-splash"
                   src={`${
-                    apiLeague.splashImageURL + searchedChampion.id
+                    apiLeague.apiBase +
+                    apiLeague.splashImageURL +
+                    searchedChampion.id
                   }_0.jpg`}
                   alt=""
                 />
               </div>
-              <div className="guide-header">
+
+              <div className="lore-header">
                 <h1>{searchedChampion.name}</h1>
                 <h4>{searchedChampion.title.toUpperCase()}</h4>
               </div>
@@ -108,16 +118,29 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
                 >
                   Skills
                 </li>
-                {console.log(activeTab)}
               </ul>
+
               <div className={activeTab === 1 ? "biography" : "hide-content"}>
                 <h2>Who is {searchedChampion.name}?</h2>
-                <p>{biography && biography[filteredChampion].biography}</p>
+
+                <p>
+                  {biographyText && biographyText[filteredChampion]?.biography}
+                </p>
               </div>
-              <div className={activeTab === 2 ? "stats" : "hide-content"}>
-                <div className="stats-header">
+
+              <div
+                className={
+                  activeTab === 2 ? "skills-container" : "hide-content"
+                }
+              >
+                <div className="skills-header">
                   <img
-                    src={`${apiLeague.squareImageURL + filteredChampion}.png`}
+                    src={`${
+                      apiLeague.apiBase +
+                      latestVersion +
+                      apiLeague.squareImageURL +
+                      filteredChampion
+                    }.png`}
                     alt=""
                   />
                   <h1>{searchedChampion.name} - Skills</h1>
@@ -126,6 +149,8 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
                   <div className="passive">
                     <img
                       src={`${
+                        apiLeague.apiBase +
+                        latestVersion +
                         apiLeague.passiveURL +
                         searchedChampion.passive.image.full
                       }`}
@@ -138,7 +163,12 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
                     (skill, index) => (
                       <div key={index} className="skill">
                         <img
-                          src={`${apiLeague.abilitiesURL + skill.id}.png`}
+                          src={`${
+                            apiLeague.apiBase +
+                            latestVersion +
+                            apiLeague.abilitiesURL +
+                            skill.id
+                          }.png`}
                           alt={index}
                         />
                         <div className="separator"></div>
@@ -146,20 +176,19 @@ export default function Guide({ search, searchSubmitted, onSearchSubmitted }) {
                       </div>
                     )
                   )}
-                  {/* <ul>
-                    <li>{searchedChampion.stats.hp}</li>
-                  </ul> */}
                 </div>
               </div>
             </div>
           </div>
+        ) : (
+          handleSearchError()
         )}
       </div>
     </>
   );
 }
 
-Guide.propTypes = {
+Lore.propTypes = {
   search: PropTypes.string,
   searchSubmitted: PropTypes.bool,
   onSearchSubmitted: PropTypes.func,

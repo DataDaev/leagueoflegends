@@ -2,18 +2,23 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const apiLeague = {
-  allChampionsURL:
-    "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion.json",
-};
-
 export default function Champions() {
   const [championImage, setChampionImage] = useState([]);
+
+  const champions = championImage.data || {};
 
   useEffect(() => {
     const fetchChampions = async () => {
       try {
-        const championDataRes = await fetch(`${apiLeague.allChampionsURL}`);
+        const versionRes = await fetch(
+          "https://ddragon.leagueoflegends.com/api/versions.json"
+        );
+        const versionData = await versionRes.json();
+        const latestVersion = versionData[0];
+
+        const championDataRes = await fetch(
+          `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion.json`
+        );
         const championData = await championDataRes.json();
         setChampionImage(championData);
       } catch (error) {
@@ -24,16 +29,14 @@ export default function Champions() {
     fetchChampions();
   }, []);
 
-  const champions = championImage.data || {};
-
   return (
-    <div>
-      {console.log(champions)}
+    <>
       <div className="content">
         <div className="content-container">
-          <div className="championGallery">
+          <h1>Champions</h1>
+          <div className="champion-gallery">
             {Object.values(champions).map((champion) => (
-              <div className="championCard" key={champion.key}>
+              <div className="champion-card" key={champion.key}>
                 <Link to={`/champions/${champion.id}`}>
                   <img
                     src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.id}_0.jpg`}
@@ -46,7 +49,7 @@ export default function Champions() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
