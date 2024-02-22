@@ -131,6 +131,7 @@ nav li a:hover {
   border: none;
   font-size: 1.2em;
   cursor: pointer;
+  /* background-color: #ecf0f1; */
 }
 
 .overlay {
@@ -282,8 +283,6 @@ nav li a:hover {
   font-size: 0.5em;
   height: 6em;
   padding: 1em 0.2em;
-  /* text-align: center;
-  justify-self: center; */
 }
 
 .lore {
@@ -504,6 +503,14 @@ nav li a:hover {
 }
 
 @media (max-width: 576px) {
+  .search-button {
+    transform: translate(-20%);
+  }
+
+  .champion-input::placeholder {
+    margin-right: -2em;
+  }
+
   .champion-gallery {
     gap: 1em;
   }
