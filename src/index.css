@@ -104,6 +104,7 @@ nav li a:hover {
   font-size: 4em;
   color: var(--accent-color);
   align-self: center;
+  padding: 0 1em;
 }
 
 .champion-input {
@@ -262,9 +263,8 @@ nav li a:hover {
 }
 
 .champion-card {
-  background-color: black;
   max-width: 11em;
-  height: 23.5em;
+  height: 24em;
 }
 
 .champion-card img {
@@ -272,12 +272,18 @@ nav li a:hover {
   max-width: 100%;
 }
 
-.champion-card h1 {
+.champion-name {
   color: var(--accent-color);
   display: flex;
   justify-content: center;
-  font-size: 1.4em;
-  margin: 0.5em;
+  text-align: center;
+  align-items: center;
+  background-color: black;
+  font-size: 0.5em;
+  height: 6em;
+  padding: 1em 0.2em;
+  /* text-align: center;
+  justify-self: center; */
 }
 
 .lore {
@@ -472,7 +478,12 @@ nav li a:hover {
   }
 
   .splash-container {
-    margin-bottom: -15em;
+    margin-bottom: -10em;
+  }
+
+  .lore-header {
+    font-size: 1.7em;
+    padding: 0 1em;
   }
 
   .featured-champion {
@@ -500,12 +511,11 @@ nav li a:hover {
   .champion-card {
     width: 7em;
     max-height: 16em;
-    font-size: 1em;
-    padding-bottom: 1em;
+    padding-bottom: 1.4em;
   }
 
-  .champion-card h1 {
-    padding: 0;
+  .champion-name {
+    font-size: 0.35em;
   }
 
   .champion-content {

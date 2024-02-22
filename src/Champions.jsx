@@ -42,7 +42,9 @@ export default function Champions() {
                     src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion.id}_0.jpg`}
                     alt=""
                   />
-                  <h1>{champion.name}</h1>
+                  <div className="champion-name">
+                    <h1>{champion.name}</h1>
+                  </div>
                 </Link>
               </div>
             ))}
