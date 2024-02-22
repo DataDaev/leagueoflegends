@@ -10,52 +10,6 @@
   --nav-seperator-color: #191919;
 }
 
-@media (max-width: 760px) {
-  nav {
-    font-size: 0.6em;
-  }
-
-  .content,
-  .footer,
-  .lore,
-  .splash-container {
-    max-width: 100%;
-  }
-
-  .featured-champion {
-    text-align: center;
-  }
-
-  .featured-champion img {
-    max-width: 100%;
-  }
-
-  .about h1 {
-    text-align: center;
-  }
-
-  .about-content {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 576px) {
-  .champion-gallery {
-    gap: 0;
-  }
-
-  .champion-card {
-    width: 7em;
-    max-height: 16em;
-    font-size: 1em;
-    padding-bottom: 1em;
-  }
-
-  .champion-card h1 {
-    padding: 0;
-  }
-}
-
 html,
 body {
   padding: 0;
@@ -348,9 +302,39 @@ nav li a:hover {
   margin: 0;
 }
 
+.splash-container {
+  min-width: 100vw;
+}
+
+.lore-splash {
+  height: 100vh;
+  width: 100%;
+  object-fit: cover;
+  box-shadow: 0px 1px 10px -2px var(--accent-color);
+  border-bottom: solid 1px var(--accent-color);
+}
+
+.lore-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  top: -50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  font-size: 2.5em;
+  text-shadow: -1px -1px black, 1px 1px black, 1px 1px black, -1px -1px black;
+}
+
+.lore-header h4 {
+  color: var(--accent-color);
+}
+
 .lore-champion {
   margin: 0 0.5em;
 }
+
 .lore-champion img {
   width: 4em;
   height: 4em;
@@ -373,7 +357,7 @@ nav li a:hover {
   white-space: pre-wrap;
   display: flex;
   flex-direction: column;
-  width: 30em;
+  max-width: 30em;
   font-size: 1.5em;
 }
 
@@ -446,35 +430,6 @@ nav li a:hover {
   border: none;
 }
 
-.splash-container {
-  width: 100vw;
-}
-
-.lore-splash {
-  height: 100vh;
-  width: 100%;
-  object-fit: cover;
-  box-shadow: 0px 1px 10px -2px var(--accent-color);
-  border-bottom: solid 1px var(--accent-color);
-}
-
-.lore-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  top: -50%;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  font-size: 2.5em;
-  text-shadow: -1px -1px black, 1px 1px black, 1px 1px black, -1px -1px black;
-}
-
-.lore-header h4 {
-  color: var(--accent-color);
-}
-
 .footer {
   background-color: var(--secondary-color);
   display: flex;
@@ -491,4 +446,72 @@ nav li a:hover {
   width: 1px;
   background-color: var(--accent-color);
   align-self: stretch;
+}
+
+@media (max-width: 760px) {
+  nav {
+    font-size: 0.6em;
+    height: 8em;
+  }
+
+  nav li {
+    font-size: 1.8em;
+  }
+
+  .content,
+  .footer,
+  .lore,
+  .splash-container {
+    max-width: 100%;
+  }
+
+  .splash-container {
+    margin-bottom: -15em;
+  }
+
+  .featured-champion {
+    text-align: center;
+  }
+
+  .featured-champion img {
+    max-width: 100%;
+  }
+
+  .about h1 {
+    text-align: center;
+  }
+
+  .about-content {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .champion-gallery {
+    gap: 1em;
+  }
+
+  .champion-card {
+    width: 7em;
+    max-height: 16em;
+    font-size: 1em;
+    padding-bottom: 1em;
+  }
+
+  .champion-card h1 {
+    padding: 0;
+  }
+
+  .champion-content {
+    margin: 0 1em;
+    min-height: 100vh;
+  }
+
+  .biography {
+    font-size: 0.8em;
+  }
+
+  .skills-header {
+    font-size: 0.7em;
+  }
 }
