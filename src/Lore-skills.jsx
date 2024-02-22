@@ -82,6 +82,7 @@ export default function Lore({ searchSubmitted, onSearchSubmitted }) {
 
   return (
     <>
+      {console.log(searchedChampion)}
       {onSearchSubmitted(false)}
       <div className="lore">
         {searchedChampion ? (
@@ -157,7 +158,12 @@ export default function Lore({ searchSubmitted, onSearchSubmitted }) {
                       alt=""
                     />
                     <div className="separator"></div>
-                    <p>{searchedChampion.passive.description}</p>
+                    <div>
+                      <p className="passive-name">
+                        {searchedChampion.passive.name}
+                      </p>
+                      <p>{searchedChampion.passive.description}</p>
+                    </div>
                   </div>
                   {Object.values(searchedChampion.spells).map(
                     (skill, index) => (
@@ -172,7 +178,10 @@ export default function Lore({ searchSubmitted, onSearchSubmitted }) {
                           alt={index}
                         />
                         <div className="separator"></div>
-                        <p>{skill.description}</p>
+                        <div>
+                          <p className="skill-name">{skill.name}</p>
+                          <p>{skill.description}</p>
+                        </div>
                       </div>
                     )
                   )}

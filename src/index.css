@@ -394,6 +394,12 @@ nav li a:hover {
   padding: 0 1em;
 }
 
+.skill-name,
+.passive-name {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
 .skill {
   display: flex;
   align-items: center;
