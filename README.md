@@ -1,4 +1,4 @@
-# **Lolchamp**
+## **Lolchamp**
 
 # League of Legends website: Lolchamp
 
@@ -7,7 +7,7 @@ and skills of every league of legends champion.
 
 Submitted by: <strong>Davis Tran</strong>
 
-# **Website Walkthrough**
+## **Website Walkthrough**
 
 # Search Function
 
